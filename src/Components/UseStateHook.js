@@ -1,21 +1,28 @@
 import React from 'react';
-import { useState } from 'react';
 
 
-export default function UseStateHook() { 
-    const [inputText, setText] = useState('hello'); 
+// export default function UseStateHook() { 
+//     const [inputText, setText] = useState('hello'); 
   
-    function handleChange(e) { 
-      setText(e.target.value); 
-    } 
+//     function handleChange(e) { 
+//       setText(e.target.value); 
+//     } 
   
+//     return ( 
+//       <> 
+//         <input className='mt-5' value={inputText} onChange={handleChange} /> 
+//         <p>You typed: {inputText}</p> 
+//         <button onClick={() => setText('hello')}> 
+//           Reset 
+//         </button> 
+//       </> 
+//     ); 
+//   } 
+
+  export default function UseStateHook(props) { 
     return ( 
-      <> 
-        <input className='mt-5' value={inputText} onChange={handleChange} /> 
-        <p>You typed: {inputText}</p> 
-        <button onClick={() => setText('hello')}> 
-          Reset 
-        </button> 
+      <>
+       <h1 className='mt-5' >{props.message}</h1>
       </> 
     ); 
   } 
