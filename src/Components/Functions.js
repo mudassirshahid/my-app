@@ -65,4 +65,13 @@ console.log(Math.random());
 </div>
 console.log(Math.floor());
 
+try {
+  (5).toUpperCase();
+  console.log()
+} 
+catch(e) {
+  console.log(`Oops, you can't uppercase a number. 
+      Trying to do it resulted in the following`, e);
+}
+
 export default Functions;

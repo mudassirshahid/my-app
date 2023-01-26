@@ -513,3 +513,370 @@ function App() {
 }
 
 export default App;
+
+
+<!-- Event Errors -->
+
+When you work in any programming environment, language, or framework, you are bound to write code that throws errors, for a variety of reasons.
+
+Sometimes it's just about writing the wrong syntax. Other times it's about not thinking of all the possible scenarios and all the possible ways that things can go wrong in your code.
+
+Regardless of what causes them, errors are a part of everyday life for a developer.
+
+The JavaScript language comes with a built-in error handling syntax, the try...catch syntax.
+
+Let’s examine an example of an error in JavaScript:
+
+(5).toUpperCase()
+
+Obviously, you cannot uppercase a number value, and thus, this throws the following error:
+
+Uncaught TypeError: 5.toUpperCase is not a function
+
+To handle this TypeError, you can update the code with a try...catch block that instructs the code to continue running after the error is encountered:
+
+try {
+    (5).toUpperCase();
+} 
+catch(e) {
+    console.log(`Oops, you can't uppercase a number. 
+        Trying to do it resulted in the following`, e);
+}
+
+The try-catch block will output some text in the console:
+
+Oops, you can't uppercase a number. Trying to do it resulted in the following TypeError: 5.toUpperCase is not a function
+
+It is assumed that if you are taking this course that you are already familiar with how the try...catch syntax works, so I won't go into any details after this quick refresher.
+
+Back to React, here's an example of a simple error in a React component:
+function NumBillboard(props) {
+    return (
+      <>
+        <h1>{prop.num}</h1>
+      </>
+    )
+  }
+
+export default NumBillboard;
+
+In React, an error in the code, such as the one above, will result in the error overlay showing in the app in the browser.
+
+In this specific example, the error would be:
+
+       ReferenceError
+
+       prop is not defined
+
+Note: You can click the X button to close the error overlay.
+
+Since event-handling errors occur after the UI has already been rendered, all you have to do is use the error-handling mechanism that already exists in JavaScript – that is, you just use the try...catch blocks.
+
+<!-- COMMON EVENTS HANDLING WITH JSX  -->
+
+import React from 'react';
+
+// function EventHandling() {
+
+//     const clickHandler = () => console.log('clicked');
+
+//     return ( 
+//         <button className='btn btn-primary mt-5' onClick={clickHandler}>
+//         Click me
+//         </button>
+//      );
+// }
+
+function EventHandling() {
+
+    const clickHandler = () => console.log('clicked');
+
+    return ( 
+        <button className='btn btn-primary mt-5' onMouseOver={clickHandler}>
+        Click me
+        </button>
+     );
+}
+
+export default EventHandling;
+
+
+<!-- Event handling and embedded expressions -->
+
+In this reading, you’ll learn the different ways to embed expressions in event handlers in React:
+
+With an inline anonymous ES5 function 
+
+With an inline, anonymous ES6 function (an arrow function) 
+
+Using a separate function declaration 
+
+Using a separate function expression 
+
+You may find this reading useful as a reference sheet.
+
+For clarity and simplicity: a function will simply console log some words. This will allow you to compare the difference in syntax between these four approaches, while the result of the event handling will always be the same: just some words output to the console.
+
+Handling events using inline anonymous ES5 functions
+This approach allows you to directly pass in an ES5 function declaration as the onClick event-handling attribute’s value:
+
+<button onClick={function() {console.log('first example')}}>
+    An inline anonymous ES5 function event handler
+</button>
+
+Although it's possible to write your click handlers using this syntax, it's not a common approach and you will not find such code very often in React apps.
+
+Handling events using inline anonymous ES6 functions (arrow functions)
+With this approach, you can directly pass in an ES6 function declaration as the onClick event-handling attribute’s value:
+
+<button onClick={() => console.log('second example')}>
+    An inline anonymous ES6 function event handler
+</button>
+
+This approach is much more common then the previous one. If you want to keep all your logic inside the JSX expression assigned to the onClick attribute, use this syntax.
+
+Handling events using separate function declarations
+With this approach, you declare a separate ES5 function declaration, and then you reference its name in the event-handling onClick attribute, as follows:
+
+function App() {
+    function thirdExample() {
+        console.log('third example');
+    };
+    return (
+        <div className="thirdExample">
+            <button onClick={thirdExample}>
+                using a separate function declaration
+            </button>
+        </div>
+    );
+};
+export default App;
+
+This syntax makes sense to be used when your onClick logic is too complex to easily fit into an anonymous function. While this example is not really showing this scenario, imagine a function that has, for example, 20 lines of code, and that needs to be ran when the click event is triggered. This is a perfect use-case for a separate function declaration.
+
+Handling events using separate function expressions
+Tip: A way to determine if a function is defined as an expression or a declaration is: if it does not start the line with the keyword function, then it’s an expression.
+
+In the following example, you’re assigning an anonymous ES6 arrow function to a const variable – hence, this is a function expression.
+
+You’re then using this const variable’s name to handle the onClick event, so this is an example of handling events using a separate function expression.
+
+function App() {
+    const fourthExample = () => console.log('fourth example');
+
+    return (
+        <div className="fourthExample">
+            <button onClick={fourthExample}>
+                using a separate function expression
+            </button>
+        </div>
+  );
+};
+export default App;
+
+
+<!-- Parent-child data flow -->
+
+Here’s a practical example of this:
+
+Imagine that the parent component passes a prop (name) to the child component. The child component then uses this prop to render the name in the UI.
+
+Parent component:
+
+function Dog() {
+    return (
+        <Puppy name="Max" bowlShape="square" bowlStatus="full" />
+    );
+};
+
+Child component:
+
+function Puppy(props) {
+    return (
+        <div>
+            {props.name} has <Bowl bowlShape="square" bowlStatus="full" />
+        </div>
+    );
+};
+
+Grandchild component:
+
+function Bowl(props) {
+    return (
+        <span>
+            {props.bowlShape}-shaped bowl, and it's currently {props.bowlStatus}
+        </span>
+    );
+};
+
+Having data move through props in only one direction makes it simpler to understand the logic of how the components interact. If data were moving everywhere, all the time, then it would be much harder to comprehend its logical flow. Any optimization you tried to implement would likely not be as efficient as it could be, especially in modern React.
+
+
+<!-- Using hooks -->
+
+Now that you understand what hooks are in React and have some basic knowledge on the useState hook, let’s dive in deeper. In this reading, you will learn how to use hooks in React components and understand the use-cases for the useState hook.
+
+Let’s say you have a component with an input text field. The user can type into this text field. The component needs to keep track of what the user types within this text field. You can add state and use the useState hook, to hold the string.
+
+As the user keeps typing, the local state that holds the string needs to get updated with the latest text that has been typed.
+
+Let's discuss the below example.
+
+import { useState } from 'react';
+
+export default function InputComponent() { 
+  const [inputText, setText] = useState('hello'); 
+
+  function handleChange(e) { 
+    setText(e.target.value); 
+  } 
+
+  return ( 
+    <> 
+      <input value={inputText} onChange={handleChange} /> 
+      <p>You typed: {inputText}</p> 
+      <button onClick={() => setText('hello')}> 
+        Reset 
+      </button> 
+    </> 
+  ); 
+} 
+
+To do this, let's define a React component and call it InputComponent. This component renders three things:
+
+An input text field 
+
+Any text that has been entered into the field 
+
+A Reset button to set the field back to its default state 
+
+As the user starts typing within the text field, the current text that was typed is also displayed.
+
+
+The state variable inputText and the setText method are used to set the current text that is typed. The useState hook is initialized at the beginning of the component.
+
+const[inputText, setText] = useState('hello');
+
+By default, the inputText will be set to “hello”.
+
+As the user types, the handleChange function, reads the latest input value from the browser’s input DOM element, and calls the setText function, to update the local state of inputText.
+
+function handleChange(e) {
+    setText(e.target.value);
+};
+
+Finally, clicking the reset button will update the inputText back to “hello”. 
+
+Isn’t this neat?
+
+Keep in mind that the inputText here is local state and is local to the InputComponent. This means that outside of this component, inputText is unavailable and unknown. In React, state is always referred to the local state of a component.
+
+Hooks also come with a set of rules, that you need to follow while using them. This applies to all React hooks, including the useState hook that you just learned.
+
+You can only call hooks at the top level of your component or your own hooks. 
+
+You cannot call hooks inside loops or conditions. 
+
+You can only call hooks from React functions, and not regular JavaScript functions. 
+
+To demonstrate, let’s extend the previous example, to include three input text fields within a single component. This could be a registration form with fields for first name, last name and email. 
+
+
+<!-- RegisterForm -->
+
+export default function RegisterForm() { 
+  const [form, setForm] = useState({ 
+    firstName: 'Luke', 
+    lastName: 'Jones', 
+    email: 'lukeJones@sculpture.com', 
+  }); 
+
+  return ( 
+    <> 
+      <label> 
+        First name: 
+        <input 
+          value={form.firstName} 
+          onChange={e => { 
+            setForm({ 
+              ...form, 
+              firstName: e.target.value 
+            }); 
+          }} 
+        /> 
+      </label> 
+      <label> 
+        Last name: 
+        <input 
+          value={form.lastName} 
+          onChange={e => { 
+            setForm({ 
+              ...form, 
+              lastName: e.target.value 
+            }); 
+          }} 
+        /> 
+      </label> 
+      <label> 
+        Email: 
+        <input 
+          value={form.email} 
+          onChange={e => { 
+            setForm({ 
+              ...form, 
+              email: e.target.value 
+            }); 
+          }} 
+        /> 
+      </label> 
+      <p> 
+        {form.firstName}{' '} 
+        {form.lastName}{' '} 
+        ({form.email})
+      </p> 
+    </> 
+  ); 
+} 
+
+Notice that you are using a form object to store the state of all three text input field values:
+
+const[form, setForm] =useState({
+firstName:'Luke',
+lastName:'Jones',
+    email:'lukeJones@sculpture.com',
+});
+
+
+You do not need to have three separate state variables in this case, and instead you can consolidate them all together into one form object for better readability.
+
+In addition to the useState hook, there are other hooks that come in handy such as useContext, useMemo, useRef, etc. When you need to share logic and reuse the same logic across several components, you can extract the logic into a custom hook. Custom hooks offer flexibility and can be used for a wide range of use-cases such as form handling, animation, timers, and many more. 
+
+Next, I'll give you an explanation of how the useRef hook works.
+
+<!-- The useRef hook -->
+
+We use the useRef hook to access a child element directly.
+
+When you invoke the useRef hook, it will return a ref object. The ref object has a property named current.
+
+
+function TextInputWithFocusButton() {
+  const inputEl = useRef(null);
+  const onButtonClick = () => {
+    // `current` points to the mounted text input element
+    inputEl.current.focus();
+  };
+  return (
+    <>
+      <input ref={inputEl} type="text" />
+      <button onClick={onButtonClick}>Focus the input</button>
+    </>
+  );
+}
+
+Using the ref attribute on the input element, I can then access the current value and invoke the focus() method on it, thereby focusing the input field.
+
+There are situations where accessing the DOM directly is needed, and this is where the useRef hook comes into play.
+
+Conclusion
+In this reading, you have explored hooks in detail and understand how to use the useState hook to maintain state within a component. You also understand the benefits of using hooks within a React component.

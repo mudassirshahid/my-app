@@ -4,6 +4,11 @@ import Heading from "./Components/Heading";
 import Functions from "./Components/Functions";
 import reactlogo from './reactlogo.svg';
 import Card from "./Components/Card";
+import Footer from "./Components/Footer";
+import ModeToggler from "./Components/ModeToggler";
+import EventHandling from "./Components/EventHandling";
+import UseStateHook from "./Components/UseStateHook";
+import RegisterForm from "./Components/RegisterForm";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.min.js'; 
 
@@ -25,7 +30,6 @@ function App() {
     {/* FUNCTIONAL COMPONENT */}
       {/* <Header />  */}
       <Header title="React"/>
-      
       <div className="container App">
       <Functions first="Home"/>
       <Logo />
@@ -34,8 +38,12 @@ function App() {
         <Card h2="First card's h2" h3="First card's h3" />
         <Card h2="Second card's h2" h3="Second card's h3" />
         <Card h2="Third card's h2" h3="Third card's h3" />
-      
+        <EventHandling />
+        <ModeToggler />
+        <UseStateHook />
+        <RegisterForm />
       </div>
+      <Footer />
     </>
   );
 }
