@@ -13,10 +13,15 @@ import Fruits from "./Components/Fruits";
 import FruitsCounter from "./Components/FruitsCounter";
 import { useRef } from "react";
 import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Components/Home";
+import About from "./Components/About";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.min.js'; 
 import UseRefHook from "./Components/UseRefHook";
-
+import CurrentMessage from "./Components/CurrentMessage";
+import MyVideo from "./Components/MyVideo";
+import SongSelection from "./Components/SongSelection";
 
 function Logo() {
   const userPic = <img src={reactlogo} />;
@@ -82,6 +87,19 @@ function App() {
     {/* FUNCTIONAL COMPONENT */}
       {/* <Header />  */}
       <Header title="React"/>
+      <CurrentMessage />
+      <MyVideo />
+      <SongSelection />
+
+
+      {/* ROUTES */}
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/About" element={<About />} />
+      </Routes>
+
+
       <div className="container App">
       <Functions first="Home"/>
       <Logo />
@@ -102,6 +120,9 @@ function App() {
         <FruitsCounter fruits={fruits} />
       </div>
       <Footer />
+
+
+      
     </>
   );
 }

@@ -77,6 +77,11 @@ npx create-react-app my-app
 cd my-app
 npm start
 npm i bootstrap@4.6.0   
+npm i react-router-dom
+
+import { BrowserRouter } from "react-router-dom";  IN INDEX.JS FILE
+
+npm install react-player
 
 
 <!-- NOTES -->
@@ -951,3 +956,174 @@ In the Wrapper component’s function declaration, there’s an h2 that reads �
 Finally, the Button component’s function declaration is coded to receive the props object, then inside of the wrapping div, show an h3. The h3 reads “This is the Button component”, and then, under that, there’s a button element with an onClick event-handling attribute. This is passed to an arrow function which should alert the string that comes from the props.msg prop.
 
 All this code results in the following UI rendered on the screen:
+
+
+This screenshot illustrates the boundaries of each component. The Main component can’t be found in the UI because it’s just rendering the Header component. The Header component then renders the Wrapper component, and the Wrapper component then renders the Button component.
+
+Note that the string that was passed on and on through each of the children component’s props’ objects is not found anywhere. However, it will appear when you click the “Click me!” button, as an alert:
+
+
+<!-- REACT ROUTER LIBRARY -->
+
+npm i react-router-dom
+
+<!-- IN INDEX.JS FILE -->
+
+import { BrowserRouter } from "react-router-dom";  
+
+
+<!-- WRAP COMPONENT IN THESE TAGS  -->
+
+<BrowserRouter> 
+     <App />
+    </BrowserRouter>
+
+<!-- IN APP.JS -->
+
+import { Routes, Route } from "react-router-dom";
+
+
+import Header from "./Components/Header";
+import Home from "./Components/Home";
+import About from "./Components/About";
+
+
+{/* ROUTES */}
+
+
+function App() {
+
+  return (
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/About" element={<About />} />
+      </Routes>
+
+    );
+}
+
+
+export default App;
+
+IN HEADER FILE PAGES LINK LIKE THIS:
+
+import { Link } from "react-router-dom";
+
+<li className="nav-item active">
+        <Link className="nav-link" to="/">Home </Link><span className="sr-only">(current)</span>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link" to="/About">About</Link>
+      </li>
+
+
+<!-- CLEAN CODE  -->
+
+Here is the Contact.js file:
+
+function Contact() {
+    return  <h1>Contact Little Lemon on this page.</h1>
+}
+export default Contact
+
+Here is the completed App.js file:
+
+import "./App.css";
+import Homepage from "./Homepage";
+import AboutLittleLemon from "./AboutLittleLemon";
+import Contact from "./Contact";
+import { Routes, Route, Link } from "react-router-dom";
+
+function App() {
+  return (
+    <div> 
+	  <nav>
+      <Link to="/" className="nav-item">Homepage</Link>
+      <Link to="/about" className="nav-item">About Little Lemon</Link>
+      <Link to="/contact" className="nav-item">Contact</Link>
+	  </nav>
+      <Routes> 
+        <Route path="/" element={<Homepage />}></Route>
+        <Route path="/about" element={<AboutLittleLemon />}></Route>
+        <Route path="/contact" element={<Contact />}></Route>
+      </Routes>
+    </div>
+  );
+};
+
+export default App;
+
+
+
+<!-- IMPORT IMAGE IN ASSET FOLDER,  WORKING IN CURRENTMESSAGE.JS COMPONENT -->
+
+import ri from '../assets/images/ri.PNG'
+
+<img height={300} width={500} src={ri} alt="screenshot" />
+
+<!-- 2ND WAY -->
+
+<img height={300} width={500} src={require('../assets/images/ri.PNG')} alt="screenshot" />
+
+<!-- 3RD WAY  -->
+
+const randomImageUrl = "https://source.unsplash.com/random/300x300?sig=1"
+
+<img  src={randomImageUrl} alt="screenshot" />
+
+
+<!-- AUDIO AND VIDEO ASSETS IN REACT APPS -->
+
+<!-- Media packages -->
+
+In this reading, you’ll learn how to install the reactjs-media npm package.
+
+You can find this package on the npmjs.org website at the following URL: 
+
+https://www.npmjs.com/package/react-player
+
+To install this package you'll need to use the following command in the terminal:
+
+npm install react-player
+
+Once you have this package installed, you can start using it in your project.
+
+There are a few ways that you can import and use the installed package. For example, to get the entire package's functionality, use the following import:
+
+import ReactPlayer from "react-player";
+
+If you are, for example, only planning to use videos from a site like YouTube, to reduce bundle size, you can use the following import:
+
+import ReactPlayer from "react-player/youtube";
+
+Here’s an example of using the react-player packaged in a small React app:
+
+import React from "react";
+import ReactPlayer from "react-player/youtube";
+
+const App = () => {
+  return (
+    <div>
+      <MyVideo />
+    </div>
+  );
+};
+
+const MyVideo = () => {
+  return (
+    <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' />
+  );
+};
+
+export default App;
+
+
+In this reading, you learned how to install and use the react-player npm package.
+
+ <!-- {/* 2ND WAY */} -->
+
+         <ReactPlayer url={vidUrl} playing={true} volume={0.1} />
+
+<!-- EXPLORE MORE ABOUT REACT PLAYER BY GOING THIS LINK  -->
+
+https://github.com/CookPete/react-player
